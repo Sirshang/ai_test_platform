@@ -1,7 +1,7 @@
 """URL configuration for AITS MVP."""
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -22,4 +22,5 @@ def api_test(_request: Request) -> Response:
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/test/", api_test, name="api-test"),
+    path("", include("apps.projects.urls")),
 ]
