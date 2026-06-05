@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "apps.core",
     "apps.projects",
+    "apps.apitest",
 ]
 
 MIDDLEWARE = [
