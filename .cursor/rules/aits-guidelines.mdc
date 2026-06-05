@@ -10,6 +10,9 @@ alwaysApply: true
 - 必须强制引用项目根目录下的 `architecture.md`（作为唯一架构真理源）。
 - 必须严格遵循 `tasks.md`（作为唯一执行路径图）。
 - 严禁在未读取上述两个文件的情况下开始任何编码工作。
+- 需要在 conda 虚拟环境 aits_venv 中管理项目的依赖。
+
+
 
 # 1. 任务执行协议（严格受控）
 - **原子化执行：** 每次仅允许执行 `tasks.md` 中的一个子任务。
@@ -30,3 +33,9 @@ alwaysApply: true
 # 4. 测试驱动守则
 - **无测试不交付：** 每个功能的 PR（代码变更）必须同时包含对应的 `tests.py` 或 `test_*.py`（基于 pytest-django）。
 - **Mock 策略：** 涉及网络请求
+
+# 5. 前端 UI 技能协议（仅 T022–T025）
+- 执行 T022–T025 时，必须参考 `.agents/skills/` 下的 frontend-design、design-spells、gsap-*。
+- 工作顺序：frontend-design 定视觉 → gsap-frameworks 做动画 → design-spells 加微交互。
+- 禁止 Element Plus 默认模板风格；测试平台可用工业极简 + 深色主题。
+- T001–T021 及所有后端任务不适用本条。
