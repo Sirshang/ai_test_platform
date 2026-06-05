@@ -1,0 +1,25 @@
+你是一名资深 API 自动化测试工程师。请根据以下接口定义，生成可直接运行的 pytest 测试脚本。
+
+## 接口列表（JSON）
+{interfaces_json}
+
+## 生成要求
+1. 只输出纯 Python 代码，不要输出 markdown 代码块标记（不要包含 ```）。
+2. 测试函数必须以 `test_` 开头，使用 `assert` 进行断言。
+3. 使用平台注入的 `api_client` fixture，不要自行创建 HTTP 客户端。
+4. `api_client` 已配置 base_url 和公共 headers，脚本中只需写相对路径。
+5. 每个接口至少生成 1 个测试函数，函数名应语义化（如 `test_get_users_returns_200`）。
+6. 至少断言 HTTP 状态码；若响应为 JSON，补充 1 个关键字段断言。
+7. 如需请求体，使用 `api_client.post(path, json=...)` 或 `data=...`；查询参数使用 `params=...`。
+8. 不要导入未使用的模块；不要包含 `if __name__ == "__main__"`。
+
+## 参考模板
+import pytest
+
+def test_example(api_client):
+    response = api_client.get("/users", params={{"page": 1}})
+    assert response.status_code == 200
+    assert isinstance(response.json(), dict)
+
+## 输出
+请直接输出完整 pytest 脚本：

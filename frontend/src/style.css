@@ -1,9 +1,43 @@
 :root {
-  font-family: Inter, 'Segoe UI', system-ui, sans-serif;
+  /* ── Industrial Control Room palette ── */
+  --aits-bg-deep: #06080c;
+  --aits-bg: #080b0f;
+  --aits-surface: #0e1218;
+  --aits-surface-raised: #141a24;
+  --aits-border: #1f2a3a;
+  --aits-border-subtle: #151c28;
+  --aits-text: #e8eef6;
+  --aits-text-muted: #6b7d96;
+  --aits-accent: #4dff91;
+  --aits-accent-dim: rgba(77, 255, 145, 0.1);
+  --aits-accent-glow: rgba(77, 255, 145, 0.4);
+  --aits-warn: #ff9f1c;
+  --aits-danger: #ff6b6b;
+  --aits-success: #4dff91;
+
+  /* ── Typography ── */
+  --aits-display: 'Syne', sans-serif;
+  --aits-sans: 'DM Sans', sans-serif;
+  --aits-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* ── Spacing rhythm (8px base) ── */
+  --aits-space-1: 4px;
+  --aits-space-2: 8px;
+  --aits-space-3: 12px;
+  --aits-space-4: 16px;
+  --aits-space-5: 24px;
+  --aits-space-6: 32px;
+  --aits-space-7: 48px;
+
+  --aits-radius: 4px;
+  --aits-radius-lg: 8px;
+  --aits-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+
+  font-family: var(--aits-sans);
   line-height: 1.5;
   font-weight: 400;
-  color: #1f2937;
-  background-color: #f5f7fa;
+  color: var(--aits-text);
+  background-color: var(--aits-bg-deep);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,8 +52,176 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--aits-bg-deep);
 }
 
 #app {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
+}
+
+/* ── Shared spotlight card surface ── */
+.spotlight-card {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  position: relative;
+  background: var(--aits-surface);
+  border: 1px solid var(--aits-border-subtle);
+  overflow: hidden;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    280px circle at var(--spot-x) var(--spot-y),
+    rgba(77, 255, 145, 0.09),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Ghost index watermark (differentiation anchor) ── */
+.ghost-index {
+  position: absolute;
+  right: -8px;
+  bottom: -20px;
+  font-family: var(--aits-display);
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(77, 255, 145, 0.07);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Secondary button ── */
+.aits-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--aits-border);
+  border-radius: var(--aits-radius);
+  background: transparent;
+  color: var(--aits-text-muted);
+  font-family: var(--aits-sans);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.aits-btn-ghost:hover {
+  border-color: var(--aits-accent);
+  color: var(--aits-accent);
+  background: var(--aits-accent-dim);
+}
+
+/* ── Element Plus dark overrides ── */
+.el-button--primary {
+  --el-button-bg-color: var(--aits-accent);
+  --el-button-border-color: var(--aits-accent);
+  --el-button-hover-bg-color: #3de87a;
+  --el-button-hover-border-color: #3de87a;
+  --el-button-text-color: var(--aits-bg-deep);
+  --el-button-hover-text-color: var(--aits-bg-deep);
+  font-family: var(--aits-display);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.el-table {
+  --el-table-bg-color: var(--aits-surface);
+  --el-table-tr-bg-color: var(--aits-surface);
+  --el-table-header-bg-color: var(--aits-surface-raised);
+  --el-table-row-hover-bg-color: rgba(77, 255, 145, 0.04);
+  --el-table-border-color: var(--aits-border-subtle);
+  --el-table-text-color: var(--aits-text);
+  --el-table-header-text-color: var(--aits-text-muted);
+}
+
+.el-input__wrapper,
+.el-textarea__inner,
+.el-select__wrapper {
+  background-color: var(--aits-surface-raised) !important;
+  box-shadow: 0 0 0 1px var(--aits-border) inset !important;
+  border-radius: var(--aits-radius) !important;
+}
+
+.el-input__inner,
+.el-textarea__inner {
+  color: var(--aits-text) !important;
+  font-family: var(--aits-mono) !important;
+  font-size: 13px !important;
+}
+
+.el-form-item__label {
+  color: var(--aits-text-muted) !important;
+  font-family: var(--aits-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+.el-dialog {
+  --el-dialog-bg-color: var(--aits-surface);
+  --el-dialog-border-radius: var(--aits-radius-lg);
+  border: 1px solid var(--aits-border);
+  box-shadow: var(--aits-shadow);
+}
+
+.el-dialog__title {
+  font-family: var(--aits-display) !important;
+  font-weight: 700 !important;
+}
+
+.el-drawer {
+  --el-drawer-bg-color: var(--aits-surface);
+  border-left: 1px solid var(--aits-border) !important;
+}
+
+.el-drawer__title {
+  font-family: var(--aits-display) !important;
+}
+
+.el-skeleton__item {
+  background: var(--aits-surface-raised) !important;
+}
+
+.el-tag {
+  font-family: var(--aits-mono) !important;
+  font-size: 11px !important;
+  border: none !important;
+}
+
+.el-tag.el-tag--success {
+  background: var(--aits-accent-dim) !important;
+  color: var(--aits-accent) !important;
+}
+
+.el-tag.el-tag--info {
+  background: rgba(255, 159, 28, 0.12) !important;
+  color: var(--aits-warn) !important;
+}
+
+/* Table row spotlight */
+.case-table .el-table__row {
+  position: relative;
+  transition: background 0.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-card::before {
+    display: none;
+  }
 }
